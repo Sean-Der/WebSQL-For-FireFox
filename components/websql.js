@@ -91,18 +91,19 @@ Cu.import("resource://gre/modules/Services.jsm");
 								var colName = statement.getColumnName(i);
 								row[colName] = nextRow.getResultByIndex(i);
 							}
-							rows.push(row);
+							row.__exposedProps__ = {id : "r", text : "r"};
+                            rows.push(row);
 						}
 					}
 					sqlAsyncCallback.handleCompletion = function(aReason) {
 						if (aReason == 0)
 						{
 							// TODO find out how to get the number of rows affected by the query
-							var rs = { 'insertId':db.lastInsertRowID, 'rowsAffected':-1, 'rows':rows };
+							var rs = { 'insertId':db.lastInsertRowID, 'rowsAffected':-1, 'rows':rows , __exposedProps__ : {rows : "r", rowsAffected : "r", insertId : "r"}};
 							rs.rows.item = function(i){ return rows[i]; }
 							rs.rows.length = rows.length;
-							
-							callbackFunc(self, rs);
+						    rs.rows.__exposedProps__ = {item : "r"};
+                            callbackFunc(self, rs);
 						}
 					}
 				}
