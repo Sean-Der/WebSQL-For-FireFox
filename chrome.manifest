@@ -1,0 +1,5 @@
+content	websqlstorage	databases/
+
+component {743f1d40-8005-11e0-b278-0800200c9a66} components/websql.js
+contract @eion.robbmob.com/websql;1 {743f1d40-8005-11e0-b278-0800200c9a66}
+category JavaScript-global-property openDatabase @eion.robbmob.com/websql;1
