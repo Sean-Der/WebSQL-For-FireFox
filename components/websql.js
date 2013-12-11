@@ -86,14 +86,14 @@ Cu.import("resource://gre/modules/Services.jsm");
 						var nextRow;
 						while (nextRow = aResultSet.getNextRow()) {
 							var row = {};
-                                                        row.__exposedProps__ = {};
+							row.__exposedProps__ = {};
 							for (var i = 0; i < statement.columnCount; i++)
 							{
 								var colName = statement.getColumnName(i);
 								row[colName] = nextRow.getResultByIndex(i);
-                                                                row.__exposedProps__[colName] = "r";
+								row.__exposedProps__[colName] = "r";
 							}
-                                                        rows.push(row);
+							rows.push(row);
 						}
 					}
 					sqlAsyncCallback.handleCompletion = function(aReason) {
@@ -103,7 +103,7 @@ Cu.import("resource://gre/modules/Services.jsm");
 							var rs = { 'insertId':db.lastInsertRowID, 'rowsAffected':-1, 'rows':rows , __exposedProps__ : {rows : "r", rowsAffected : "r", insertId : "r"}};
 							rs.rows.item = function(i){ return rows[i]; }
 							rs.rows.length = rows.length;
-						    rs.rows.__exposedProps__ = {item : "r"};
+							rs.rows.__exposedProps__ = {item : "r"};
                             callbackFunc(self, rs);
 						}
 					}
